@@ -1,11 +1,11 @@
-FROM oberthur/docker-ubuntu-java:jdk8_8.112.15
+FROM oberthur/docker-ubuntu-java:jdk8_8.121.13
 
 MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
 ENV HOME=/opt/app \
     JETTY_VERSION_MAJOR=9 \
-    JETTY_VERSION_MINOR=9.3.12 \
-    JETTY_VERSION_BUILD=v20160915
+    JETTY_VERSION_MINOR=9.3.14 \
+    JETTY_VERSION_BUILD=v20161028
 
 WORKDIR /opt/app
 
