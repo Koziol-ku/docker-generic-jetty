@@ -1,4 +1,4 @@
-FROM oberthur/docker-ubuntu-java:jdk8_8.121.13
+FROM oberthur/docker-ubuntu-java:jdk8_8.121.13_V3
 
 MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
@@ -18,7 +18,7 @@ RUN curl -L -O http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distributio
     && mv /opt/app/jetty-* /opt/app/jetty \
     && mkdir /opt/app/jetty/tmp \
     && mkdir /opt/app/base \
-    && curl -k https://raw.githubusercontent.com/jetty-project/logging-modules/master/logback/logging.mod > /opt/app/jetty/modules/logging.mod \
+    && curl -k -X HTTP_PROXY=$HTTP_PROXY https://raw.githubusercontent.com/jetty-project/logging-modules/master/logback/logging.mod > /opt/app/jetty/modules/logging.mod \
     && sed -i 's#<Set name="sendServerVersion"><Property name="jetty.send.server.version" default="true" /></Set>#<Set name="sendServerVersion"><Property name="jetty.send.server.version" default="false" /></Set>#' /opt/app/jetty/etc/jetty.xml \
     && sed -i 's#<New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>#<New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler">\n               <Set name="serveIcon">false</Set>\n               <Set name="showContexts">false</Set>\n             </New>#' /opt/app/jetty/etc/jetty.xml \
     && java -jar -Djetty.base=/opt/app/base /opt/app/jetty/start.jar --add-to-start=http,plus,jsp,jndi,annotations,deploy,logging,ext \
